@@ -47,32 +47,31 @@
 
 		<div class="menu-mobile">
 			<div class="site-branding-mobile">
-						<?php //show title or Header image
-						if ( get_header_image() ) { 
-							echo '<a href="'. home_url() .'"><img alt="'. esc_attr( get_bloginfo( 'name' ) ) .'" title="'. esc_attr( get_bloginfo( 'name' ) ) .'" class="header-image" src="' . esc_url( get_header_image() ) . '" /></a>';
-						} else { ?>
-							<h1 class="site-title"><a title="<?php bloginfo( 'name' ); ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-						<?php } ?>
+				<?php //show title or Header image
+				if ( get_header_image() ) { 
+					echo '<a href="'. home_url() .'"><img alt="'. esc_attr( get_bloginfo( 'name' ) ) .'" title="'. esc_attr( get_bloginfo( 'name' ) ) .'" class="header-image" src="' . esc_url( get_header_image() ) . '" /></a>';
+				} else { ?>
+					<h1 class="site-title"><a title="<?php bloginfo( 'name' ); ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php } ?>
 					
 			</div>
 
-	  				<div id="menu-toggle">
-	  					<i class="fa fa-bars"></i>
-   					</div>
+			<div id="menu-toggle">
+				<i class="fa fa-bars"></i>
+			</div>
 
-	  				<nav id="site-navigation-mobile" class="main-navigation" role="navigation">
+			<nav id="site-navigation-mobile" class="main-navigation" role="navigation">
 
-						<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
-				
-					</nav><!-- #site-navigation-mobile -->
+				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
+	
+			</nav><!-- #site-navigation-mobile -->
 
-					<?php if ( get_bloginfo( 'description' ) ) { ?>				
+			<?php if ( get_bloginfo( 'description' ) ) { ?>				
 				<h2 class="description">
 					<?php bloginfo( 'description' ); ?>
 				</h2>				
-			<?php } ?>
-
-					
+			<?php } ?>	
+				
 	  	</div>
 
 	</header><!-- #masthead -->
