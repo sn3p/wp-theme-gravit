@@ -102,7 +102,7 @@ function gravit_comment( $comment, $args, $depth ) {
 		<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
-					
+
 					<?php if ( 0 != $args['avatar_size'] ) { echo get_avatar( $comment, $args['avatar_size'] ); } ?>
 
 					<div class="comment-name">
@@ -111,7 +111,7 @@ function gravit_comment( $comment, $args, $depth ) {
 							<i class="fa fa-star"></i>
 						</div>
 					</div>
-					
+
 					<div class="comment-metadata">
 					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 						<time datetime="<?php comment_time( 'c' ); ?>">
@@ -125,12 +125,12 @@ function gravit_comment( $comment, $args, $depth ) {
 
 				<div class="comment-content">
 					<?php comment_text(); ?>
-				</div><!-- .comment-content -->				
+				</div><!-- .comment-content -->
 
 				<?php if ( '0' == $comment->comment_approved ) : ?>
 				<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'gravit' ); ?></p>
 				<?php endif; ?>
-			</footer><!-- .comment-meta -->			
+			</footer><!-- .comment-meta -->
 
 			<?php
 				comment_reply_link( array_merge( $args, array(
@@ -154,42 +154,56 @@ if ( ! function_exists( 'gravit_posted_on' ) ) :
  */
 function gravit_posted_on() {
 	$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
-	
+
 	$time_string = sprintf( $time_string,
 		esc_attr( get_the_date( 'c' ) ),
 		esc_html( get_the_date() )
 	);
 
-	if ( is_sticky() ) { 
-		echo '<span class="sticky-meta"><i class="fa fa-exclamation-circle"></i> ' . __('Sticky','gravit') .'</span>';
+	if ( is_sticky() ) {
+		echo '<span class="sticky-meta"><i class="fa fa-exclamation-circle"></i> ' . __('Sticky', 'gravit') .'</span>';
 	}
 
-	if ( !is_single( ) ) {
-		printf( __( '<span class="posted-on">%1$s</span>', 'gravit' ),
-			sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
-				esc_url( get_permalink() ),
-				$time_string
-			),
-			sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>',
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				esc_html( get_the_author() )
-			)
-		);
+	// if ( !is_single( ) ) {
+	// 	printf( __( '<span class="posted-on">%1$s</span>', 'gravit' ),
+	// 		sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
+	// 			esc_url( get_permalink() ),
+	// 			$time_string
+	// 		),
+	// 		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>',
+	// 			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+	// 			esc_html( get_the_author() )
+	// 		)
+	// 	);
+	//
+	// } else { /* don't display permalink on single post view */
+	// 	printf( __( '<span class="posted-on">%1$s</span>', 'gravit' ),
+	// 		sprintf( '%2$s',
+	// 			esc_url( get_permalink() ),
+	// 			$time_string
+	// 		),
+	// 		sprintf( '<span class="author vcard">%%2$s</span>',
+	// 			esc_html( get_the_author() )
+	// 		)
+	// 	);
+	// }
 
-	} else { /* don't display permalink on single post view */
-		printf( __( '<span class="posted-on">%1$s</span>', 'gravit' ),
-			sprintf( '%2$s',
-				esc_url( get_permalink() ),
-				$time_string
-			),
-			sprintf( '<span class="author vcard">%%2$s</span>',
-				esc_html( get_the_author() )
-			)
-		);
-	}
+	printf( __( '<span class="posted-on">%1$s</span>', 'gravit' ),
+		sprintf(
+			// don't display permalink on single post view
+			is_single() ? '%2$s' : '<a href="%1$s" rel="bookmark">%2$s</a>',
+			esc_url( get_permalink() ),
+			$time_string
+		)
+	);
+
+	printf( ' door <span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>',
+		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		esc_html( get_the_author() )
+	);
 
 	if ( comments_open() ) :
-		echo '<span class="sep-meta"></span> <span class="comments-meta">';				
+		echo '<span class="sep-meta"></span> <span class="comments-meta">';
 		echo comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'gravit' ) . '</span>', __( '1 Reply', 'gravit' ), __( '% Replies', 'gravit' ) ) . '</span>';
 	endif; // comments_open();
 
